@@ -5,9 +5,59 @@ import PlayZone from "./Containers/PlayZone/PlayZone";
 import styles from './App.css'
 
 class App extends Component {
-    state = initialData;
 
+
+    constructor(props) {
+        super(props)
+        this.state=initialData
+        let Cards = []
+        for (let key in initialData.cards){
+            Cards=[...Cards,initialData.cards[key]]
+        }
+        console.log(initialData)
+        let newCardsIndecies = this.getRand(0,Cards.length,2);
+        console.log(Cards)
+        let oldCards = Cards.filter((card,i)=>{
+            return newCardsIndecies.some(j => {
+                return (i===j)
+            })
+        }).map(card=>card.id)
+        let newCards = Cards.filter((card,i)=>{
+            return newCardsIndecies.every(j => {
+                return (i!==j)
+            })
+        }).map(card=>card.id)
+
+        this.state.columns['new-cards'].cardIds=newCards
+        this.state.columns['old-cards'].cardIds=oldCards
+        console.log(this.state)
+    }
+
+    getRand(min,max,num) {
+        let range = []
+        for (let i = min;i<max;i++){
+            range=[...range,i]
+        }
+        let result = []
+        for (let j = 0;j<num;j++){
+            let r = Math.floor(Math.random()*range.length)
+            result=[...result,range[r]]
+            range.splice(r,1)
+        }
+        return result
+    }
+
+    onDragStart = start => {
+        const homeIndex = this.state.columnOrder.indexOf(start.source.droppableId)
+        this.setState({
+            homeIndex
+        })
+    }
     onDragEnd = result => {
+
+        this.setState({
+            homeIndex:null
+        })
         const {destination,source,draggableId}=result
         if (!destination){
             return
@@ -18,7 +68,7 @@ class App extends Component {
         const start = this.state.columns[source.droppableId]
         const finish = this.state.columns[destination.droppableId]
         if (start===finish) {
-            const column = start
+            /*const column = start
             const newCardIds = Array.from(column.cardIds)
             newCardIds.splice(source.index, 1)
             newCardIds.splice(destination.index, 0, draggableId)
@@ -33,7 +83,7 @@ class App extends Component {
                     [newColumn.id]: newColumn,
                 }
             }
-            this.setState(newState)
+            this.setState(newState)*/
             return
         }
         const startCardIds = Array.from(start.cardIds)
@@ -58,16 +108,26 @@ class App extends Component {
             }
         }
         this.setState(newState)
+        if (this.state.columns["new-cards"].cardIds.length===0) {alert("Congratulations!")}
     }
 
     render(){
         return (
-            <DragDropContext onDragEnd={this.onDragEnd}>
+            <DragDropContext
+                onDragStart={this.onDragStart}
+                onDragEnd={this.onDragEnd}
+            >
                 <div className={styles.App}>
-                    {this.state.columnOrder.map(columnId => {
+                    {this.state.columnOrder.map((columnId,index) => {
                         const column = this.state.columns[columnId];
                         const cards = column.cardIds.map(cardId => this.state.cards[cardId]);
-                        return <PlayZone key={column.id} column={column} cards={cards} />;
+                        const isDropDisabled = index <= this.state.homeIndex
+                        return <PlayZone
+                                    isDropDisabled={isDropDisabled}
+                                    key={column.id}
+                                    column={column}
+                                    cards={cards}
+                                />;
                     })}
                 </div>
             </DragDropContext>

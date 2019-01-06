@@ -11,18 +11,19 @@ export default class PlayZone extends React.Component {
                 <Droppable
                     droppableId={this.props.column.id}
                     direction="horizontal"
+                    isDropDisabled={this.props.isDropDisabled}
                 >
                     {(provided,snapshot)=> {
-                        console.log(provided.innerRef)
+
                         return (
                                 <div
                                     className={styles.PlayedCards}
                                     ref={provided.innerRef}
                                     {...provided.droppableProps}
-                                    isDraggingOver={snapshot.isDraggingOver}
+                                    /*isDraggingOver={snapshot.isDraggingOver}*/
                                 >
-                                        {this.props.cards.map((card,index)=><Card key={card.id} card={card} index={index}/>)}
-                                        {provided.placeholder}
+                                    {this.props.cards.map((card,index)=><Card played={this.props.column.played} key={card.id} card={card} index={index}/>)}
+                                    {provided.placeholder}
                                 </div>
                         )
                     }}

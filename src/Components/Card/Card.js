@@ -16,10 +16,10 @@ class Card extends Component {
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
                         ref={provided.innerRef}
-                        isDragging={snapshot.isDragging}
+                        /*isDragging={snapshot.isDragging}*/
                     >
-                        <h1>{this.props.card.title}</h1>
-                        <div className={styles.Price}>{this.props.card.price}</div>
+                        <p>{this.props.card.title}</p>
+                        <div className={styles.Price}>{this.props.played ? this.props.card.price : '?'}</div>
                     </div>
             )
             }

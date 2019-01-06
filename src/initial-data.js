@@ -13,12 +13,14 @@ const initialData = {
         "new-cards": {
             id: "new-cards",
             title: "Drop this cards from this area ...",
-            cardIds: ["meme5","meme6","meme7","meme8"]
+            cardIds: ["meme5","meme6","meme7","meme8"],
+            played:false
         },
         "old-cards": {
             id: "old-cards",
             title: "... to this one!",
-            cardIds: ["meme1", "meme2", "meme3", "meme4"]
+            cardIds: ["meme1", "meme2", "meme3", "meme4"],
+            played:true
         }
     },
     // Facilitate reordering of the columns

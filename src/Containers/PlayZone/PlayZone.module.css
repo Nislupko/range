@@ -3,12 +3,14 @@
     margin: 8px;
     border-radius: 2px;
     min-width: 300px;
+
     display:flex;
     flex-direction:column;
 }
 
 .PlayedCards{
     width:90vw;
+    min-height: 250px;
     border: 3px solid gray;
     border-radius: 10px;
     padding: 10px 10px 10px 10px;
