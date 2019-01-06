@@ -12,12 +12,17 @@ const initialData = {
     columns: {
         "new-cards": {
             id: "new-cards",
-            title: "Play this cards",
-            cardIds: ["meme1", "meme2", "meme3", "meme4","meme5","meme6","meme7","meme8"]
+            title: "Drop this cards from this area ...",
+            cardIds: ["meme5","meme6","meme7","meme8"]
+        },
+        "old-cards": {
+            id: "old-cards",
+            title: "... to this one!",
+            cardIds: ["meme1", "meme2", "meme3", "meme4"]
         }
     },
     // Facilitate reordering of the columns
-    columnOrder: ["new-cards"]
+    columnOrder: ["new-cards","old-cards"]
 };
 
 export default initialData;

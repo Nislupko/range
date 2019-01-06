@@ -1,10 +1,9 @@
 import React from 'react';
 import {Droppable} from 'react-beautiful-dnd'
 import Card from '../../Components/Card/Card'
-import PlayedCards from '../PlayedCards/PlayedCards'
 import styles from './PlayZone.module.css'
 
-export default class Column extends React.Component {
+export default class PlayZone extends React.Component {
     render() {
         return(
             <div className={styles.PlayZone}>
@@ -17,14 +16,13 @@ export default class Column extends React.Component {
                         console.log(provided.innerRef)
                         return (
                                 <div
+                                    className={styles.PlayedCards}
                                     ref={provided.innerRef}
                                     {...provided.droppableProps}
                                     isDraggingOver={snapshot.isDraggingOver}
                                 >
-                                    <PlayedCards>
                                         {this.props.cards.map((card,index)=><Card key={card.id} card={card} index={index}/>)}
                                         {provided.placeholder}
-                                    </PlayedCards>
                                 </div>
                         )
                     }}

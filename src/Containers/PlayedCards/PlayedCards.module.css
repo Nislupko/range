@@ -1,9 +1,0 @@
-.PlayedCards{
-    width:80vw;
-    padding: 10px 10px 10px 10px;
-    margin-outside: 20px;
-    display:flex;
-    overflow-x: scroll;
-    flex-direction: row;
-    margin:auto;
-}

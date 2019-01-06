@@ -1,8 +1,21 @@
 .PlayZone{
+    text-align: center;
     margin: 8px;
-    border: 1px solid lightgrey;
     border-radius: 2px;
     min-width: 300px;
     display:flex;
     flex-direction:column;
+}
+
+.PlayedCards{
+    width:90vw;
+    border: 3px solid gray;
+    border-radius: 10px;
+    padding: 10px 10px 10px 10px;
+    margin-outside: 20px;
+    display:flex;
+    overflow-x: scroll;
+    flex-direction: row;
+    justify-content: center;
+    margin:auto;
 }

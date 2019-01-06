@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import {DragDropContext} from 'react-beautiful-dnd'
 import initialData from './initial-data'
-import Column from "./Containers/PlayZone/PlayZone";
+import PlayZone from "./Containers/PlayZone/PlayZone";
+import styles from './App.css'
 
 class App extends Component {
     state = initialData;
@@ -16,11 +17,11 @@ class App extends Component {
         }
         const start = this.state.columns[source.droppableId]
         const finish = this.state.columns[destination.droppableId]
-        if (start===finish){
+        if (start===finish) {
             const column = start
             const newCardIds = Array.from(column.cardIds)
-            newCardIds.splice(source.index,1)
-            newCardIds.splice(destination.index,0,draggableId)
+            newCardIds.splice(source.index, 1)
+            newCardIds.splice(destination.index, 0, draggableId)
             const newColumn = {
                 ...column,
                 cardIds: newCardIds
@@ -35,17 +36,18 @@ class App extends Component {
             this.setState(newState)
             return
         }
-        const startTaskIds = Array.from(start.taskIds)
-        startTaskIds.splice(source.index,1)
+        const startCardIds = Array.from(start.cardIds)
+        startCardIds.splice(source.index,1)
         const newStart = {
             ...start,
-            taskIds: startTaskIds
+            cardIds: startCardIds
         }
-        const finishTaskIds = Array.from(finish.taskIds)
-        finishTaskIds.splice(destination.index,0,draggableId)
+        const finishCardIds = Array.from(finish.cardIds)
+        finishCardIds.splice(destination.index,0,draggableId)
+
         const newFinish = {
             ...finish,
-            taskIds: finishTaskIds
+            cardIds: finishCardIds
         }
         const newState = {
             ...this.state,
@@ -58,14 +60,14 @@ class App extends Component {
         this.setState(newState)
     }
 
-    render() {
+    render(){
         return (
             <DragDropContext onDragEnd={this.onDragEnd}>
-                <div style={{display:'flex'}}>
+                <div className={styles.App}>
                     {this.state.columnOrder.map(columnId => {
                         const column = this.state.columns[columnId];
                         const cards = column.cardIds.map(cardId => this.state.cards[cardId]);
-                        return <Column key={column.id} column={column} cards={cards} />;
+                        return <PlayZone key={column.id} column={column} cards={cards} />;
                     })}
                 </div>
             </DragDropContext>
