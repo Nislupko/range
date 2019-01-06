@@ -21,15 +21,15 @@ class App extends Component {
             return newCardsIndecies.some(j => {
                 return (i===j)
             })
-        })
+        }).map(card=>card.id)
         let newCards = Cards.filter((card,i)=>{
             return newCardsIndecies.every(j => {
                 return (i!==j)
             })
-        })
-        oldCards.sort((fir,sec)=>fir.price-sec.price)
-        this.state.columns['new-cards'].cardIds=newCards.map(card=>card.id)
-        this.state.columns['old-cards'].cardIds=oldCards.map(card=>card.id)
+        }).map(card=>card.id)
+
+        this.state.columns['new-cards'].cardIds=newCards
+        this.state.columns['old-cards'].cardIds=oldCards
         console.log(this.state)
     }
 
