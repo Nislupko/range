@@ -27,6 +27,7 @@ class App extends Component {
                 return (i!==j)
             })
         }).map(card=>card.id)
+        //
 
         this.state.columns['new-cards'].cardIds=newCards
         this.state.columns['old-cards'].cardIds=oldCards
